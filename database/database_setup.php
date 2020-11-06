@@ -23,7 +23,11 @@ class DatabaseSetup {
     echo $query;
     echo "\n";
     $result = $this->$databaseConnection->query($query);
-    print_r($result);
+    if ($result) {
+      print_r($result);
+    } else {
+      echo "FALHA!!!\n";
+    }
     echo "\n";
   }
 
@@ -31,62 +35,60 @@ class DatabaseSetup {
     $this->clearDataset();
     $this->createTables();
     $this->insertExamples();
-    $this->createViews();
+  }
+
+  private function showTables() {
+    $query = "SHOW TABLES";
+    $this->execute($query);
   }
 
   private function clearDataset() {
-      $query = "DROP TABLE notes";
+      $query = "DROP TABLE IF EXISTS mensagens";
       $this->execute($query);
-      $query = "DROP TABLE users";
-      $this->execute($query);
-      $query = "DROP VIEW notesview";
+      $query = "DROP TABLE IF EXISTS usuarios";
       $this->execute($query);
   }
 
   private function createTables() {
-    $this->createTableUsers();
-    $this->createTableNotes();
+    $this->createTableUsuarios();
+    $this->createTableMensagens();
   }
 
-  private function createTableUsers() {
-    $query = "CREATE TABLE IF NOT EXISTS users ( 
+  private function createTableUsuarios() {
+    $query = "CREATE TABLE IF NOT EXISTS usuarios ( 
         id INT NOT NULL AUTO_INCREMENT, 
         PRIMARY KEY (id), 
-        username VARCHAR(16) NOT NULL UNIQUE, 
-        password VARCHAR(128) NOT NULL
+        login VARCHAR(16) NOT NULL UNIQUE, 
+        senha VARCHAR(128) NOT NULL
     )";
-    $this->execute($query);
-    $query = "DESCRIBE users";
     $this->execute($query);
   }
 
-  private function createTableNotes() {
-    $query = "CREATE TABLE IF NOT EXISTS notes ( 
+  private function createTableMensagens() {
+    $query = "CREATE TABLE IF NOT EXISTS mensagens ( 
         id INT NOT NULL AUTO_INCREMENT, 
         PRIMARY KEY (id), 
-        userid INT NOT NULL, 
-        FOREIGN KEY (userid) REFERENCES users(id),
-        notetext VARCHAR(128) NOT NULL,
-        notetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+        usuario_id INT NOT NULL, 
+        FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+        texto VARCHAR(128) NOT NULL,
+        tempo TIMESTAMP NOT NULL
     )";
-    $this->execute($query);
-    $query = "DESCRIBE notes";
     $this->execute($query);
   }
 
   private function insertExamples() {
-    $query = "INSERT INTO users (username, password) VALUES ('someuser', '123123')";
+    $query = "INSERT INTO usuarios (login, senha) VALUES ('fulano', '123123')";
     $this->execute($query);
-    $query = "INSERT INTO notes (userid, notetext) VALUES (1,'Very first note of all.')";
+    $query = "INSERT INTO mensagens (usuario_id, texto) VALUES (1,'Nota de exemplo.')";
     $this->execute($query);
   }
 
-  private function createViews() {
-    $query = "CREATE VIEW notesview AS
-    SELECT users.id AS userid, users.username, notes.id AS noteid, notes.notetext, notes.notetime
-    FROM notes INNER JOIN users ON users.id = notes.userid";
-    $this->execute($query);
-  }
+  // private function createViews() {
+  //   $query = "CREATE VIEW mensagensview AS
+  //   SELECT usuarios.id AS usuario_id, usuarios.login, mensagens.id AS noteid, mensagens.texto, mensagens.tempo
+  //   FROM mensagens INNER JOIN usuarios ON usuarios.id = mensagens.usuario_id";
+  //   $this->execute($query);
+  // }
 
 }
 

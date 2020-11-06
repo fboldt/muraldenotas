@@ -1,23 +1,23 @@
 <?php
 
+function DBMSConnection() {    
+    $hostName = 'us-cdbr-east-02.cleardb.com';
+    $database = 'heroku_aab6fa12ea7243b';
+    $userName = 'b4d3f2c3728fa5';
+    $password = '2d885664';
+    $mysqlConnection = new mysqli($hostName, $userName, $password, $database);
+    return $mysqlConnection;
+}
+
 class DatabaseConnection {
-    public $DBMSConnection;
+    private $DBMSConnection;
 
     function __construct() {
-        $this->loadDBMSFileSetup();
         $this->DBMSConnection = DBMSConnection();
     }
 
     function __destruct() {
         $this->DBMSConnection->close();
-    }
-
-    private function loadDBMSFileSetup() {
-        if ($_SERVER['SERVER_ADDR'] == "::1" || $_SERVER['SERVER_ADDR'] == "127.0.0.1") {
-            require_once '../database/localhost.php';
-        } else {
-            require_once '../database/onlinehost.php';
-        }
     }
 
     function query($query) {
@@ -28,6 +28,22 @@ class DatabaseConnection {
         return $this->DBMSConnection->real_escape_string($var);
     }
 
+    function sanitizeString($var) {
+        $var = strip_tags($var);
+        $var = htmlentities($var);
+        if (get_magic_quotes_gpc()) {
+          $var = stripslashes($var);
+        }
+        return $this->real_escape_string($var);
+    }
+
+    static function queryResultToPhpArray($queryResult) {
+        $phparray = array();
+        while ($row = $queryResult->fetch_array(MYSQLI_ASSOC)) {
+          array_push($phparray, $row);
+        }
+        return $phparray;
+    }
 }
 
 ?>
