@@ -1,10 +1,10 @@
 <?php 
 
 function DBMSConnection() {    
-    $hostName = 'sql310.epizy.com';
-    $database = 'epiz_26152445_authentication';
-    $userName = 'epiz_26152445';
-    $password = 'RBFgQtOuOj';
+    $hostName = 'us-cdbr-east-02.cleardb.com';
+    $database = 'heroku_aab6fa12ea7243b';
+    $userName = 'b4d3f2c3728fa5';
+    $password = '2d885664';
     $mysqlConnection = new mysqli($hostName, $userName, $password, $database);
     return $mysqlConnection;
 }
