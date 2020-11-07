@@ -14,19 +14,22 @@ class Login {
         $this->senha = "";
     }
 
-    static function checarCamposPost() {
-        return isset($_POST['login']) && isset($_POST['senha']);
-    }
-
     private function sanitizeString($string) {
         return $this->database->sanitizeString($string);
     }
 
-    private function sanitizaCamposPost() {
-        $usernameWithoutWhiteSpaces = preg_replace("/\s+/", "", $_POST['username']);
-        $this->username = $this->sanitizeString($usernameWithoutWhiteSpaces);
-        $passwordWithoutWhiteSpaces = preg_replace("/\s+/", "", $_POST['password']);
-        $this->password = $this->sanitizeString($passwordWithoutWhiteSpaces);
+    private function sanitizaLogin() {
+        if (isset($_POST['login'])) {
+            $usernameWithoutWhiteSpaces = preg_replace("/\s+/", "", $_POST['username']);
+            $this->login = $this->sanitizeString($usernameWithoutWhiteSpaces);
+        }
+    }
+
+    private function sanitizaSenha() {
+        if (isset($_POST['senha'])) {
+            $passwordWithoutWhiteSpaces = preg_replace("/\s+/", "", $_POST['password']);
+            $this->senha = $this->sanitizeString($passwordWithoutWhiteSpaces);
+        }
     }
 
     static function loginNulo() {
@@ -36,31 +39,25 @@ class Login {
         return $resposta;
     }
 
-    private function checarCamposLogin() {
-        return !empty($this->login) && !empty($this->senha);
-    }
-
     private function buscarUsuarioDoBanco() {
-        return $this->database->buscarUsuarioDoBanco($this->login, $this->senha);
+        $reposta = Self::loginNulo();
+        $resultado = $this->database->buscarUsuarioDoBanco($this->login, $this->senha);
+        echo "resultado ";
+        print_r($resultado);
+        if (sizeof($resultado) > 0) {
+            $userObj = $resultado[0];
+            $resposta['usid'] = $userObj['id'];
+            $resposta['login'] = $userObj['login'];
+        }
+        return $resposta;
     }
 
     function checarLogin() {
-        $response = Self::loginNulo();
-        if (Self::checarCamposPost()) {
-            $this->sanitizaCamposPost();
-            if ($this->checarCamposLogin()) {
-                $resultado = $this->buscarUsuarioDoBanco();
-                if (sizeof($resultado) > 0) {
-                    $userObj = $resultado[0];
-                    $_SESSION['usid'] = $response['usid'] = $userObj['id'];
-                    $_SESSION['login'] = $response['login'] = $userObj['login'];
-                }
-            }
-        }
-        if ($response['userid'] == 0 || $response['username'] == "") {
-            Self::destroy_session();
-        }
-        return $response;
+        $this->sanitizaLogin();
+        $this->sanitizaSenha();
+        $resposta = $this->buscarUsuarioDoBanco();
+        $_SESSION['usid'] = $resposta['usid'];
+        $_SESSION['login'] = $resposta['login'];
     }
 
     // private function insertUserInDatabase() {

@@ -9,12 +9,10 @@ function checkLogin() {
     $resposta = Login::loginNulo();
     verificaObjeto($resposta);
 
+    $login->checarLogin();
+
     echo "usuarioLogado<br>";
     verificaObjeto(Login::usuarioLogado());
-
-    verificaObjeto(Login::checarCamposPost());
-
-    verificaObjeto($login->checarLogin());
 
 }
 
