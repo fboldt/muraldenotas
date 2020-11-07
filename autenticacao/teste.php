@@ -5,14 +5,13 @@ require_once 'login.php';
 function checkLogin() {
     $login = new Login();
     verificaObjeto($login);
-    
-    $resposta = Login::loginNulo();
-    verificaObjeto($resposta);
 
+    echo "getUsuario: ";
+    print_r($login->getUsuario());
+    echo "checar login<br>";
     $login->checarLogin();
-
-    echo "usuarioLogado<br>";
-    verificaObjeto(Login::usuarioLogado());
+    echo "getUsuario: ";
+    print_r($login->getUsuario());
 
 }
 
@@ -20,14 +19,21 @@ echo "teste login.php<br><br>";
 checkLogin();
 
 $formlogin = <<<STR
-<form action="teste.php" method="POST">
-    <input type="text" size="6" name="login" value="fulano">
-    <input type="text" size="6" name="senha" value="123123">
+<form action="checalogin.php" method="POST">
+<input type="text" size="6" name="login" value="cicrano">
+<input type="text" size="6" name="senha" value="123456">
     <input type="submit" value="login">
 </form>
 STR;
 echo $formlogin;
 
-
+$formsignup = <<<STR
+<form action="insereusuario.php" method="POST">
+    <input type="text" size="6" name="login" value="cicrano">
+    <input type="text" size="6" name="senha" value="123456">
+    <input type="submit" value="signup">
+</form>
+STR;
+echo $formsignup;
 
 ?>

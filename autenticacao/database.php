@@ -12,11 +12,17 @@ class Database {
         return $this->databaseConnection->sanitizeString($string);
     }
 
-    function buscarUsuarioDoBanco($login, $senha) {
+    function buscaUsuarioDoBanco($login, $senha) {
         $query = "SELECT * FROM usuarios WHERE senha='$senha' AND login='$login'";
         $queryResult = $this->databaseConnection->query($query);
         $phpArrayResult = DatabaseConnection::queryResultToPhpArray($queryResult);
         return $phpArrayResult;  
+    }
+
+    function insereUsuarioNoBanco($login, $senha) {
+        $query = "INSERT INTO usuarios (login, senha) VALUES ('$login','$senha')";
+        $result = $this->databaseConnection->query($query);
+        return $result; 
     }
 }
 
