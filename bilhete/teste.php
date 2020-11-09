@@ -1,5 +1,6 @@
 <?php
 require_once 'bilhete.php';
+require_once '../extras/somentedesenvolvimento.php';
 
 function getBilhetes() {
     $bilhete = new Bilhete();

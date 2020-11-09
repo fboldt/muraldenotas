@@ -10,6 +10,7 @@
 <pre>
 <?php
 require_once '../database/connection.php';
+require_once '../extras/somentedesenvolvimento.php';
 
 class DatabaseSetup {
   

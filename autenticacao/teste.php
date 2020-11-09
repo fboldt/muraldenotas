@@ -1,5 +1,6 @@
 <?php
 require_once 'autenticacao.php';
+require_once '../extras/somentedesenvolvimento.php';
 
 function checkautenticacao() {
     $autenticacao = new Autenticacao();
