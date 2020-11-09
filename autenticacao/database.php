@@ -1,5 +1,5 @@
 <?php
-require_once '../database/database_connection.php';
+require_once '../database/connection.php';
 
 class Database {
     private $databaseConnection;
