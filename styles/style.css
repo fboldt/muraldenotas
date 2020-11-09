@@ -2,15 +2,15 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.notetext {
+.msgtexto {
     padding-left: 20px;
     margin-bottom: 1ex;
 }
 
-.notetime {
+.tempo {
     font-size: xx-small;
 }
 
-.username {
+.nomeusu {
     font-weight: bold;
 }

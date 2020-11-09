@@ -28,33 +28,33 @@ class Login {
     }
 
     fetchCheckLoginPage() {
-        fetch('auth/checklogin.php')
+        fetch('autenticacao/api/login.php')
             .then(response => response.json())
             .then(data => {
                 this.checkLogin(data);
             });
     }
 
-    checkLogin(user) {
-        if (user.userid > 0) {
-            this.makeFormLogout(user);
-            this.loginDiv.setAttribute("userid", user.userid);
+    checkLogin(usuario) {
+        if (usuario.usuid > 0) {
+            this.makeFormLogout(usuario);
+            this.loginDiv.setAttribute("usuid", usuario.usuid);
         } else {
             this.makeFormLogin();
-            this.loginDiv.setAttribute("userid", "0");
+            this.loginDiv.setAttribute("usuid", "0");
         }
     }
 
-    makeFormLogout(user) {
-        this.loginDiv.innerHTML = `${user.username}
+    makeFormLogout(usuario) {
+        this.loginDiv.innerHTML = `${usuario.login}
         <a href="javascript:logout()">logout</a>`;
     }
 
     logout() {
         let data = new FormData();
-        data.append('username', "");
-        data.append('password', "");
-        fetch('auth/checklogin.php', { method: "POST", body: data })
+        data.append('login', "");
+        data.append('senha', "");
+        fetch('autenticacao/api/login.php', { method: "POST", body: data })
             .then(response => response.json())
             .then(data => {
                 this.checkLogin(data);
@@ -64,19 +64,19 @@ class Login {
     makeFormLogin() {
         this.loginDiv.innerHTML = `
         <form action="javascript:login()">
-            <input type="text" size="6" name="username" placeholder="username" maxlength="16">
-            <input type="password" size="6" name="password" placeholder="password" maxlength="128">
-            <input type="submit" value="login">
-            <button onclick="signup()">signup</button>
+            <input type="text" size="6" name="login" placeholder="login" maxlength="16">
+            <input type="password" size="6" name="senha" placeholder="senha" maxlength="128">
+            <input type="submit" value="entrar">
+            <button onclick="signup()">cadastrar</button>
         </form>`;
     }
 
     login() {
         const form = this.loginDiv.querySelector("form");
         let data = new FormData();
-        data.append('username', form.username.value);
-        data.append('password', form.password.value);
-        fetch('auth/checklogin.php', { method: 'POST', body: data })
+        data.append('login', form.login.value);
+        data.append('senha', form.senha.value);
+        fetch('autenticacao/api/login.php', { method: 'POST', body: data })
             .then(response => response.json())
             .then(data => {
                 this.checkLogin(data);
@@ -86,9 +86,9 @@ class Login {
     signup() {
         const form = this.loginDiv.querySelector("form");
         let data = new FormData();
-        data.append('username', form.username.value);
-        data.append('password', form.password.value);
-        fetch('auth/signup.php', { method: 'POST', body: data })
+        data.append('login', form.login.value);
+        data.append('senha', form.senha.value);
+        fetch('autenticacao/api/insereusuario.php', { method: 'POST', body: data })
             .then(response => response.json())
             .then(data => {
                 this.checkLogin(data);

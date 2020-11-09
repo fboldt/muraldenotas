@@ -13,7 +13,7 @@ class Database {
     }
 
     function buscaBilhetesDoBanco() {
-        $query = "SELECT * FROM mensagens";
+        $query = "SELECT usuarios.id AS usuid, usuarios.login, mensagens.id AS bilid, mensagens.texto, mensagens.tempo FROM mensagens INNER JOIN usuarios ON usuarios.id = mensagens.usuid";
         $result = $this->databaseConnection->query($query);
         $result = DatabaseConnection::queryResultToPhpArray($result);
         return $result;  

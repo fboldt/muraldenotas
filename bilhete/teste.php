@@ -10,6 +10,15 @@ function getBilhetes() {
 }
 
 getBilhetes();
+
+function getUsuid() {
+    $autenticacao = new Autenticacao();
+    $usuario = $autenticacao->getUsuario();
+    return $usuario['usuid'];
+}
+$usuid = getUsuid();
+echo "<br>$usuid<br>";
+
 $form = <<<STR
 <form action="api/inserebilhete.php" method="POST">
 <input type="text" name="texto" value="teste insere mensagem">

@@ -83,13 +83,6 @@ class DatabaseSetup {
     $this->execute($query);
   }
 
-  // private function createViews() {
-  //   $query = "CREATE VIEW mensagensview AS
-  //   SELECT usuarios.id AS usuario_id, usuarios.login, mensagens.id AS noteid, mensagens.texto, mensagens.tempo
-  //   FROM mensagens INNER JOIN usuarios ON usuarios.id = mensagens.usuario_id";
-  //   $this->execute($query);
-  // }
-
 }
 
 $databaseSetup = new DatabaseSetup();
