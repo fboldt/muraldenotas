@@ -68,8 +68,8 @@ class DatabaseSetup {
     $query = "CREATE TABLE IF NOT EXISTS mensagens ( 
         id INT NOT NULL AUTO_INCREMENT, 
         PRIMARY KEY (id), 
-        usuario_id INT NOT NULL, 
-        FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+        usuid INT NOT NULL, 
+        FOREIGN KEY (usuid) REFERENCES usuarios(id),
         texto VARCHAR(128) NOT NULL,
         tempo TIMESTAMP NOT NULL
     )";
@@ -79,7 +79,7 @@ class DatabaseSetup {
   private function insertExamples() {
     $query = "INSERT INTO usuarios (login, senha) VALUES ('fulano', '123123')";
     $this->execute($query);
-    $query = "INSERT INTO mensagens (usuario_id, texto) VALUES (1,'Nota de exemplo.')";
+    $query = "INSERT INTO mensagens (usuid, texto) VALUES (1,'Nota de exemplo.')";
     $this->execute($query);
   }
 

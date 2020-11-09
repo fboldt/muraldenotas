@@ -3,7 +3,7 @@ require_once 'database.php';
 
 session_start();
 
-class Login {
+class Autenticacao {
     private $database;
     private $login;
     private $senha;
@@ -38,40 +38,41 @@ class Login {
         }
     }
 
-    private function buscaUsuarioDoBanco() {
+    private function criaSessaoUsuario() {
         $resultado = $this->database->buscaUsuarioDoBanco($this->login, $this->senha);
         if (sizeof($resultado) > 0) {
             $userObj = $resultado[0];
             $_SESSION['usuid'] = $userObj['id'];
             $_SESSION['login'] = $userObj['login'];
         } else {
-            Self::destroy_session();
+            Self::destroiSessao();
         }
     }
 
-    function checarLogin() {
+    function checarAutenticacao() {
         $this->sanitizaLogin();
         $this->sanitizaSenha();
-        $this->buscaUsuarioDoBanco();
+        $this->criaSessaoUsuario();
     }
 
     private function insereUsuarioNoBanco() {
-        $this->database->insereUsuarioNoBanco($this->login, $this->senha);
+        return $this->database->insereUsuarioNoBanco($this->login, $this->senha);
     }
 
     function insereUsuario() {
         $this->sanitizaLogin();
         $this->sanitizaSenha();
-        $this->insereUsuarioNoBanco();
+        return $this->insereUsuarioNoBanco();
     }
 
-    static function destroy_session() {
+    static function destroiSessao() {
         $_SESSION=array();
         if (session_id != "" || isset($_COOKIE[session_name()])) {
             setcookie(session_name(), '', time()-2592000, '/');
         }
         session_destroy();
     }
+
 }
 
 ?>

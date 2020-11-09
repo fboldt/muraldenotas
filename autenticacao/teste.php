@@ -1,34 +1,30 @@
 <?php
-require_once '../testes/funcoes.php';
-require_once 'login.php';
+require_once 'autenticacao.php';
 
-function checkLogin() {
-    $login = new Login();
-    verificaObjeto($login);
+function checkautenticacao() {
+    $autenticacao = new Autenticacao();
+    print_r($autenticacao);
 
-    echo "getUsuario: ";
-    print_r($login->getUsuario());
-    echo "checar login<br>";
-    $login->checarLogin();
-    echo "getUsuario: ";
-    print_r($login->getUsuario());
-
+    echo "<br>getUsuario: ";
+    print_r($autenticacao->getUsuario());
+    echo "<br>checar autenticacao<br>";
+    $autenticacao->checarAutenticacao();
 }
 
-echo "teste login.php<br><br>";
-checkLogin();
+echo "teste autenticacao.php<br><br>";
+checkautenticacao();
 
-$formlogin = <<<STR
-<form action="checalogin.php" method="POST">
+$formautenticacao = <<<STR
+<form action="api/login.php" method="POST">
 <input type="text" size="6" name="login" value="cicrano">
 <input type="text" size="6" name="senha" value="123456">
-    <input type="submit" value="login">
+    <input type="submit" value="autenticacao">
 </form>
 STR;
-echo $formlogin;
+echo $formautenticacao;
 
 $formsignup = <<<STR
-<form action="insereusuario.php" method="POST">
+<form action="api/insereusuario.php" method="POST">
     <input type="text" size="6" name="login" value="cicrano">
     <input type="text" size="6" name="senha" value="123456">
     <input type="submit" value="signup">

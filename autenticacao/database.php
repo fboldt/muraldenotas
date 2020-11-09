@@ -14,9 +14,9 @@ class Database {
 
     function buscaUsuarioDoBanco($login, $senha) {
         $query = "SELECT * FROM usuarios WHERE senha='$senha' AND login='$login'";
-        $queryResult = $this->databaseConnection->query($query);
-        $phpArrayResult = DatabaseConnection::queryResultToPhpArray($queryResult);
-        return $phpArrayResult;  
+        $result = $this->databaseConnection->query($query);
+        $result = DatabaseConnection::queryResultToPhpArray($result);
+        return $result;  
     }
 
     function insereUsuarioNoBanco($login, $senha) {

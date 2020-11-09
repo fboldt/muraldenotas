@@ -9,6 +9,15 @@ function DBMSConnection() {
     return $mysqlConnection;
 }
 
+function DBMSConnection_Exemplo() {    
+    $hostName = 'us-cdbr-east-02.cleardb.com';
+    $database = 'heroku_aab6fa12ea7243b';
+    $userName = 'SEU USERNAME CLEARDB';
+    $password = 'SUA SENHA CLEARDB';
+    $mysqlConnection = new mysqli($hostName, $userName, $password, $database);
+    return $mysqlConnection;
+}
+
 class DatabaseConnection {
     private $DBMSConnection;
 
@@ -21,7 +30,8 @@ class DatabaseConnection {
     }
 
     function query($query) {
-        return $this->DBMSConnection->query($query);
+        $result = $this->DBMSConnection->query($query);
+        return $result;
     }
 
     function real_escape_string($var) {
@@ -44,6 +54,7 @@ class DatabaseConnection {
         }
         return $phparray;
     }
+
 }
 
 ?>
