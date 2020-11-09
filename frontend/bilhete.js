@@ -1,3 +1,5 @@
+const apidebilhetes = "bilhete/api/";
+
 document.addEventListener("DOMContentLoaded", function () {
     document.body.notas = new Bilhetes();
 });
@@ -14,7 +16,7 @@ class Bilhetes {
         let data = new FormData();
         data.append('usuid', usuid);
         data.append('bilid', bilid);
-        fetch('bilhete/api/removebilhete.php', { method: 'POST', body: data })
+        fetch(apidebilhetes + 'removebilhete.php', { method: 'POST', body: data })
             .then(response => response.text())
             .then(data => {
                 if (data == "1") {
@@ -50,7 +52,7 @@ class Bilhetes {
         let data = new FormData();
         data.append('usuid', usuid);
         data.append('texto', form.newnotatext.value);
-        fetch('bilhete/api/inserebilhete.php', { method: 'POST', body: data })
+        fetch(apidebilhetes + 'inserebilhete.php', { method: 'POST', body: data })
             .then(response => response.text())
             .then(data => {
                 if (data == "1") {
@@ -68,7 +70,7 @@ class Bilhetes {
     }
 
     fetchNotas() {
-        fetch('bilhete/api/getbilhetes.php')
+        fetch(apidebilhetes + 'getbilhetes.php')
             .then(response => response.json())
             .then(data => {
                 this.notasDiv.innerHTML = "";

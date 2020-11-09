@@ -1,3 +1,5 @@
+const apideautenticacao = "autenticacao/api/";
+
 document.addEventListener("DOMContentLoaded", function () {
     document.body.login = new Login();
 });
@@ -28,7 +30,7 @@ class Login {
     }
 
     fetchCheckLoginPage() {
-        fetch('autenticacao/api/login.php')
+        fetch(apideautenticacao + 'login.php')
             .then(response => response.json())
             .then(data => {
                 this.checkLogin(data);
@@ -54,7 +56,7 @@ class Login {
         let data = new FormData();
         data.append('login', "");
         data.append('senha', "");
-        fetch('autenticacao/api/login.php', { method: "POST", body: data })
+        fetch(apideautenticacao + 'login.php', { method: "POST", body: data })
             .then(response => response.json())
             .then(data => {
                 this.checkLogin(data);
@@ -76,7 +78,7 @@ class Login {
         let data = new FormData();
         data.append('login', form.login.value);
         data.append('senha', form.senha.value);
-        fetch('autenticacao/api/login.php', { method: 'POST', body: data })
+        fetch(apideautenticacao + 'login.php', { method: 'POST', body: data })
             .then(response => response.json())
             .then(data => {
                 this.checkLogin(data);
@@ -88,7 +90,7 @@ class Login {
         let data = new FormData();
         data.append('login', form.login.value);
         data.append('senha', form.senha.value);
-        fetch('autenticacao/api/insereusuario.php', { method: 'POST', body: data })
+        fetch(apideautenticacao + 'insereusuario.php', { method: 'POST', body: data })
             .then(response => response.json())
             .then(data => {
                 this.checkLogin(data);
