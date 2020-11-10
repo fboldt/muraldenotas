@@ -1,5 +1,4 @@
 <?php
-header('Access-Control-Allow-Origin: *');
 chdir('../');
 require_once 'autenticacao.php';
 
