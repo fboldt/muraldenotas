@@ -5,13 +5,15 @@ class PostgresConnection implements DatabaseConnection {
     private $pgConnection;
 
     function __construct() { 
+        //*
+        $connstring = "host=127.0.0.1 dbname=muraldenotas user=francisco password=francisco";
+        /*/
         $hostName = 'ec2-54-159-107-189.compute-1.amazonaws.com';
         $database = 'd9q8kqci7t6slv';
         $userName = 'whzhsiuwmrjiln';
         $password = 'c4fee2720e737a3af59d5d7a10f60ac4e278f2794914bad385cbcb6d0c33dd3d';
-        $connlocal = "host=127.0.0.1 dbname=muraldenotas user=francisco password=francisco";
-        $connremote = "host=$hostName dbname=$database user=$userName password=$password";
-        $connstring = $connlocal;
+        $connstring = "host=$hostName dbname=$database user=$userName password=$password";
+        //*/
         $this->pgConnection = pg_connect($connstring);
     }
 
@@ -20,7 +22,7 @@ class PostgresConnection implements DatabaseConnection {
     }
 
     function executeQuery($query) {
-        $result = pg_query($query);
+        $result = pg_query($this->pgConnection, $query);
         return $result;
     }
 
