@@ -7,30 +7,25 @@ class DatabaseSetup {
   private $databaseConnection;
 
   function __construct(){
-    $this->$databaseConnection = getDatabaseConnection();
+    $this->databaseConnection = getDatabaseConnection();
   }
 
   private function executeQuery($query) {
+    echo "<br>";
     echo $query;
-    echo "\n";
-    $result = $this->$databaseConnection->executeQuery($query);
+    $result = $this->databaseConnection->executeQuery($query);
     if ($result) {
       print_r($result);
     } else {
-      echo "FALHA!!!\n";
+      echo "FALHA!!!";
     }
-    echo "\n<br>";
+    echo "<br>";
   }
 
   function reset() {
     $this->clearDataset();
     $this->createTables();
     $this->insertExamples();
-  }
-
-  private function showTables() {
-    $query = "SHOW TABLES";
-    $this->executeQuery($query);
   }
 
   private function clearDataset() {
@@ -46,9 +41,9 @@ class DatabaseSetup {
   }
 
   private function createTableUsuarios() {
+    $pkstr = $this->databaseConnection->autoincrementPrimaryKey();
     $query = "CREATE TABLE IF NOT EXISTS usuarios ( 
-        id INT NOT NULL AUTO_INCREMENT, 
-        PRIMARY KEY (id), 
+        id " . $pkstr . ", 
         login VARCHAR(16) NOT NULL UNIQUE, 
         senha VARCHAR(128) NOT NULL
     )";
@@ -56,13 +51,14 @@ class DatabaseSetup {
   }
 
   private function createTableMensagens() {
+    $pkstr = $this->databaseConnection->autoincrementPrimaryKey();
+    $defaultimestamp = $this->databaseConnection->defaultTimestamp();
     $query = "CREATE TABLE IF NOT EXISTS mensagens ( 
-        id INT NOT NULL AUTO_INCREMENT, 
-        PRIMARY KEY (id), 
+        id " . $pkstr . ", 
         usuid INT NOT NULL, 
         FOREIGN KEY (usuid) REFERENCES usuarios(id),
         texto VARCHAR(128) NOT NULL,
-        tempo TIMESTAMP NOT NULL
+        tempo " . $defaultimestamp . " NOT NULL
     )";
     $this->executeQuery($query);
   }

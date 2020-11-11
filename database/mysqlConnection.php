@@ -1,7 +1,7 @@
 <?php
 require_once 'databaseConnection.php';
 
-class mysqlConnection implements DatabaseConnection {
+class MysqlConnection implements DatabaseConnection {
     private $mysqlConnection;
 
     function __construct() {
@@ -21,17 +21,13 @@ class mysqlConnection implements DatabaseConnection {
         return $result;
     }
 
-    private function real_escape_string($var) {
-        return $this->mysqlConnection->real_escape_string($var);
-    }
-
     function sanitizeString($var) {
         $var = strip_tags($var);
         $var = htmlentities($var);
         if (get_magic_quotes_gpc()) {
           $var = stripslashes($var);
         }
-        return $this->real_escape_string($var);
+        return $this->mysqlConnection->real_escape_string($var);
     }
 
     function queryResultToPhpArray($queryResult) {
@@ -40,6 +36,14 @@ class mysqlConnection implements DatabaseConnection {
           array_push($phparray, $row);
         }
         return $phparray;
+    }
+
+    function autoincrementPrimaryKey() {
+        return 'INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id)';
+    }
+
+    function defaultTimestamp() {
+        return 'TIMESTAMP';
     }
 
 }

@@ -5,5 +5,9 @@ interface DatabaseConnection {
     function queryResultToPhpArray($queryResult);
 
     function sanitizeString($var);
+
+    function autoincrementPrimaryKey();
+
+    function defaultTimestamp();
 }
 ?>
