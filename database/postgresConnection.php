@@ -18,7 +18,6 @@ class PostgresConnection implements DatabaseConnection {
     }
 
     function __destruct() {
-        pg_close($this->pgConnection);
     }
 
     function executeQuery($query) {
