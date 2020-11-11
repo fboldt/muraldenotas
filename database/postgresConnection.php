@@ -5,7 +5,7 @@ class PostgresConnection implements DatabaseConnection {
     private $pgConnection;
 
     function __construct() { 
-        //*
+        /*
         $connstring = "host=127.0.0.1 dbname=muraldenotas user=francisco password=francisco";
         /*/
         $hostName = 'ec2-54-159-107-189.compute-1.amazonaws.com';
