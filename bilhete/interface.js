@@ -19,7 +19,7 @@ class Bilhetes {
         fetch(apidebilhetes + 'removebilhete.php', { method: 'POST', body: data })
             .then(response => response.text())
             .then(data => {
-                if (data == "1") {
+                if (data != "0") {
                     this.fetchNotas();
                 }
             });
@@ -55,7 +55,7 @@ class Bilhetes {
         fetch(apidebilhetes + 'inserebilhete.php', { method: 'POST', body: data })
             .then(response => response.text())
             .then(data => {
-                if (data == "1") {
+                if (data != "0") {
                     this.fetchNotas();
                     form.newnotatext.value = "";
                 }
