@@ -12,7 +12,7 @@ class DatabaseSetup {
 
   private function executeQuery($query) {
     echo "<br>";
-    echo $query;
+    echo $query . ": ";
     $result = $this->databaseConnection->executeQuery($query);
     if ($result) {
       print_r($result);
