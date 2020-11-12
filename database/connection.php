@@ -13,7 +13,6 @@ function runningLocal() {
 }
 
 function getPostgresConnection() {
-    require_once 'postgresConnection.php';
     if (runningLocal()) {
         require_once 'localPostgresCredentials.php';
         $postgresCredentials = new LocalPostgresCredentials();
@@ -21,11 +20,11 @@ function getPostgresConnection() {
         require_once 'remotePostgresCredentials.php';
         $postgresCredentials = new RemotePostgresCredentials();
     }
+    require_once 'postgresConnection.php';
     return new PostgresConnection($postgresCredentials);
 }
 
 function getMysqlConnection() {
-    require_once 'mysqlConnection.php';
     if (runningLocal()) {
         require_once 'localMysqlCredentials.php';
         $mysqlCredentials = new LocalMysqlCredentials();
@@ -33,6 +32,7 @@ function getMysqlConnection() {
         require_once 'remoteMysqlCredentials.php';
         $mysqlCredentials = new RemoteMysqlCredentials();
     }
+    require_once 'mysqlConnection.php';
     return new MysqlConnection($mysqlCredentials);
 }
 
