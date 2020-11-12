@@ -4,12 +4,12 @@ require_once 'databaseConnection.php';
 class MysqlConnection implements DatabaseConnection {
     private $mysqlConnection;
 
-    function __construct() {
-        $hostName = 'us-cdbr-east-02.cleardb.com';
-        $database = 'heroku_aab6fa12ea7243b';
-        $userName = 'b4d3f2c3728fa5';
-        $password = '2d885664';
-        $this->mysqlConnection = new mysqli($hostName, $userName, $password, $database);
+    function __construct($mysqlCredentials) {
+        $hostname = $mysqlCredentials->getHostname();
+        $database = $mysqlCredentials->getDatabase();
+        $username = $mysqlCredentials->getUsername();
+        $password = $mysqlCredentials->getPassword();
+        $this->mysqlConnection = new mysqli($hostname, $username, $password, $database);
     }
 
     function __destruct() {

@@ -4,16 +4,12 @@ require_once 'databaseConnection.php';
 class PostgresConnection implements DatabaseConnection {
     private $pgConnection;
 
-    function __construct() { 
-        /*
-        $connstring = "host=127.0.0.1 dbname=muraldenotas user=francisco password=francisco";
-        /*/
-        $hostName = 'ec2-54-159-107-189.compute-1.amazonaws.com';
-        $database = 'd9q8kqci7t6slv';
-        $userName = 'whzhsiuwmrjiln';
-        $password = 'c4fee2720e737a3af59d5d7a10f60ac4e278f2794914bad385cbcb6d0c33dd3d';
-        $connstring = "host=$hostName dbname=$database user=$userName password=$password";
-        //*/
+    function __construct($postgresCredentials) {
+        $hostname = $postgresCredentials->getHostname();
+        $database = $postgresCredentials->getDatabase();
+        $username = $postgresCredentials->getUsername();
+        $password = $postgresCredentials->getPassword();
+        $connstring = "host=$hostname dbname=$database user=$username password=$password";
         $this->pgConnection = pg_connect($connstring);
     }
 
