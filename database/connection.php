@@ -1,11 +1,18 @@
 <?php
 
+function getDatabaseConnection() {
+    //*
+    return getPostgresConnection();
+    /*/
+    return getMysqlConnection();
+    //*/
+}
+
 function runningLocal() {
     return ($_SERVER['SERVER_ADDR'] == "::1" || $_SERVER['SERVER_ADDR'] == "127.0.0.1");
 }
 
-function getDatabaseConnection() {
-    //*
+function getPostgresConnection() {
     require_once 'postgresConnection.php';
     if (runningLocal()) {
         require_once 'localPostgresCredentials.php';
@@ -15,7 +22,9 @@ function getDatabaseConnection() {
         $postgresCredentials = new RemotePostgresCredentials();
     }
     return new PostgresConnection($postgresCredentials);
-    /*/
+}
+
+function getMysqlConnection() {
     require_once 'mysqlConnection.php';
     if (runningLocal()) {
         require_once 'localMysqlCredentials.php';
@@ -25,6 +34,6 @@ function getDatabaseConnection() {
         $mysqlCredentials = new RemoteMysqlCredentials();
     }
     return new MysqlConnection($mysqlCredentials);
-    //*/
 }
+
 ?>
