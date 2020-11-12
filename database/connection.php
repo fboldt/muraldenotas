@@ -11,7 +11,7 @@ function runningLocal() {
 }
 
 function getDatabaseConnection() {
-    /*
+    //*
     if (runningLocal()) {
         $postgresCredentials = new LocalPostgresCredentials();
     } else {
