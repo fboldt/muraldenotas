@@ -20,7 +20,7 @@ function getConnection($dbms) {
         $dbmsCredentials = $basedir . $dbms . '/remoteCredentials.php';
     }
     require_once $dbmsCredentials;
-    $databaseCredentials = new databaseCredentials();
+    $databaseCredentials = new DatabaseCredentials();
     require_once $dbms . '/connection.php';
     return new DatabaseConnection($databaseCredentials);
 }
