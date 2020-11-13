@@ -1,7 +1,7 @@
 <?php
-require_once 'databaseCredentials.php';
+require_once 'iDatabaseCredentials.php';
 
-class LocalMysqlCredentials implements DatabaseCredentials {
+class DatabaseCredentials implements IDatabaseCredentials {
     function getHostname() {
         return 'localhost';
     }
@@ -15,4 +15,5 @@ class LocalMysqlCredentials implements DatabaseCredentials {
         return 'francisco';
     }
 }
+
 ?>

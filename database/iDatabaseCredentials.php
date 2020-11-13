@@ -1,5 +1,5 @@
 <?php
-interface DatabaseCredentials {
+interface IDatabaseCredentials {
     function getHostname();
     function getDatabase();
     function getUsername();

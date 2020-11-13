@@ -1,7 +1,7 @@
 <?php
-require_once 'databaseCredentials.php';
+require_once 'iDatabaseCredentials.php';
 
-class LocalPostgresCredentials implements DatabaseCredentials {
+class DatabaseCredentials implements IDatabaseCredentials {
     function getHostname() {
         return '127.0.0.1';
     }

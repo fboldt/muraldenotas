@@ -1,7 +1,7 @@
 <?php
-require_once 'databaseConnection.php';
+require_once 'iDatabaseConnection.php';
 
-class MysqlConnection implements DatabaseConnection {
+class DatabaseConnection implements IDatabaseConnection {
     private $mysqlConnection;
 
     function __construct($mysqlCredentials) {

@@ -2,9 +2,9 @@
 
 function getDatabaseConnection() {
     //*
-    return getPostgresConnection();
+    return getConnection('postgres');
     /*/
-    return getMysqlConnection();
+    return getConnection('mysql');
     //*/
 }
 
@@ -12,28 +12,16 @@ function runningLocal() {
     return ($_SERVER['SERVER_ADDR'] == "::1" || $_SERVER['SERVER_ADDR'] == "127.0.0.1");
 }
 
-function getPostgresConnection() {
+function getConnection($dbms) {
     if (runningLocal()) {
-        require_once 'localPostgresCredentials.php';
-        $postgresCredentials = new LocalPostgresCredentials();
+        $dbmsCredentials = $dbms . '/localCredentials.php';
     } else {
-        require_once 'remotePostgresCredentials.php';
-        $postgresCredentials = new RemotePostgresCredentials();
+        $dbmsCredentials = $dbms . '/remoteCredentials.php';
     }
-    require_once 'postgresConnection.php';
-    return new PostgresConnection($postgresCredentials);
-}
-
-function getMysqlConnection() {
-    if (runningLocal()) {
-        require_once 'localMysqlCredentials.php';
-        $mysqlCredentials = new LocalMysqlCredentials();
-    } else {
-        require_once 'remoteMysqlCredentials.php';
-        $mysqlCredentials = new RemoteMysqlCredentials();
-    }
-    require_once 'mysqlConnection.php';
-    return new MysqlConnection($mysqlCredentials);
+    require_once $dbmsCredentials;
+    $databaseCredentials = new databaseCredentials();
+    require_once $dbms . '/connection.php';
+    return new DatabaseConnection($databaseCredentials);
 }
 
 ?>

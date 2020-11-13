@@ -1,7 +1,7 @@
 <?php
-require_once 'databaseCredentials.php';
+require_once 'iDatabaseCredentials.php';
 
-class RemoteMysqlCredentials implements DatabaseCredentials {
+class DatabaseCredentials implements IDatabaseCredentials {
     function getHostname() {
         return 'us-cdbr-east-02.cleardb.com';
     }

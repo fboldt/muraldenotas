@@ -1,7 +1,7 @@
 <?php
-require_once 'databaseConnection.php';
+require_once 'iDatabaseConnection.php';
 
-class PostgresConnection implements DatabaseConnection {
+class DatabaseConnection implements IDatabaseConnection {
     private $pgConnection;
 
     function __construct($postgresCredentials) {

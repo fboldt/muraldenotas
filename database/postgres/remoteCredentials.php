@@ -1,7 +1,7 @@
 <?php
-require_once 'databaseCredentials.php';
+require_once 'iDatabaseCredentials.php';
 
-class RemotePostgresCredentials implements DatabaseCredentials {
+class DatabaseCredentials implements IDatabaseCredentials {
     function getHostname() {
         return 'ec2-54-159-107-189.compute-1.amazonaws.com';
     }
