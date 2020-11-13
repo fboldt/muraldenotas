@@ -13,10 +13,11 @@ function runningLocal() {
 }
 
 function getConnection($dbms) {
+    $basedir = '../database/';
     if (runningLocal()) {
-        $dbmsCredentials = $dbms . '/localCredentials.php';
+        $dbmsCredentials = $basedir . $dbms . '/localCredentials.php';
     } else {
-        $dbmsCredentials = $dbms . '/remoteCredentials.php';
+        $dbmsCredentials = $basedir . $dbms . '/remoteCredentials.php';
     }
     require_once $dbmsCredentials;
     $databaseCredentials = new databaseCredentials();

@@ -1,5 +1,5 @@
 <?php
-require_once 'iDatabaseCredentials.php';
+require_once '../database/interface/iDatabaseCredentials.php';
 
 class DatabaseCredentials implements IDatabaseCredentials {
     function getHostname() {

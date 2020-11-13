@@ -1,5 +1,5 @@
 <?php
-require_once 'iDatabaseConnection.php';
+require_once '../database/interface/iDatabaseConnection.php';
 
 class DatabaseConnection implements IDatabaseConnection {
     private $pgConnection;
